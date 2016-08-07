@@ -24,10 +24,10 @@
     
     <modules>
         <module>core</module>
-        <module>ui.apps</module>
-        <module>ui.content</module>
-        <module>it.tests</module>
-        <module>it.launcher</module>
+        <!--<module>ui.apps</module>-->
+        <!--<module>ui.content</module>-->
+        <!--<module>it.tests</module>-->
+        <!--<module>it.launcher</module>-->
     </modules>
 
     <properties>
@@ -46,7 +46,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.0</version>
                 <configuration>
                     <scmCommentPrefix>[maven-scm] :</scmCommentPrefix>
                     <preparationGoals>clean install</preparationGoals>
@@ -104,8 +104,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -115,7 +115,7 @@
                 <artifactId>maven-idea-plugin</artifactId>
                 <version>2.2.1</version>
                 <configuration>
-                    <jdkLevel>1.6</jdkLevel>
+                    <jdkLevel>1.7</jdkLevel>
                     <linkModules>true</linkModules>
                     <downloadSources>true</downloadSources>
                 </configuration>
@@ -170,7 +170,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                               <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        <outputDirectory>${project.build.directory}/classes</outputDirectory>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -327,24 +327,20 @@
             </plugins>
         </pluginManagement>
     </build>
-
     <profiles>
         <!-- ====================================================== -->
         <!-- A D O B E   P U B L I C   P R O F I L E                -->
         <!-- ====================================================== -->
         <profile>
             <id>adobe-public</id>
-
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
             <properties>
                 <releaseRepository-Id>adobe-public-releases</releaseRepository-Id>
                 <releaseRepository-Name>Adobe Public Releases</releaseRepository-Name>
                 <releaseRepository-URL>https://repo.adobe.com/nexus/content/groups/public</releaseRepository-URL>
             </properties>
-
             <repositories>
                 <repository>
                     <id>adobe-public-releases</id>
@@ -359,7 +355,6 @@
                     </snapshots>
                 </repository>
             </repositories>
-
             <pluginRepositories>
                 <pluginRepository>
                     <id>adobe-public-releases</id>
@@ -376,13 +371,19 @@
             </pluginRepositories>
         </profile>
     </profiles>
-
-
     <!-- ====================================================================== -->
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencyManagement>
         <dependencies>
+            <!-- Adobe AEM 6.2 Uber Jar -->
+            <dependency>
+                <groupId>com.adobe.aem</groupId>
+                <artifactId>uber-jar</artifactId>
+                <version>6.2.0</version>
+                <classifier>obfuscated-apis</classifier>
+                <scope>provided</scope>
+            </dependency>
             <!-- OSGi Dependencies -->
             <dependency>
                 <groupId>org.apache.felix</groupId>
@@ -397,10 +398,10 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-        <groupId>biz.aQute</groupId>
-        <artifactId>bndlib</artifactId>
-        <version>1.50.0</version>
-        <scope>provided</scope>
+                <groupId>biz.aQute</groupId>
+                <artifactId>bndlib</artifactId>
+                <version>1.50.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
@@ -421,21 +422,6 @@
                 <version>1.5.11</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- Apache Sling Dependencies -->
-            <dependency>
-                <groupId>com.adobe.aem</groupId>
-                <artifactId>aem-api</artifactId>
-                <version>6.0.0.1</version>
-                <scope>provided</scope>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>org.apache.sling.models.api</artifactId>
-                <version>1.0.0</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- Servlet API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -462,13 +448,32 @@
                 <artifactId>cq-wcm-taglib</artifactId>
                 <version>5.7.4</version>
                 <scope>provided</scope>
-            </dependency>            
+            </dependency>
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.8.2</version>
+                <version>4.12</version>
                 <scope>test</scope>
+            </dependency>
+            <!-- http://mvnrepository.com/artifact/junit/junit-dep -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit-dep</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- http://mvnrepository.com/artifact/io.wcm/io.wcm.testing.aem-mock -->
+            <dependency>
+                <groupId>io.wcm</groupId>
+                <artifactId>io.wcm.testing.aem-mock</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <!-- http://mvnrepository.com/artifact/io.wcm/io.wcm.testing.wcm-io-mock.handler -->
+            <dependency>
+                <groupId>io.wcm</groupId>
+                <artifactId>io.wcm.testing.wcm-io-mock.handler</artifactId>
+                <version>0.5.2</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
