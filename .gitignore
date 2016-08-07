@@ -15,3 +15,7 @@ hs_err_pid*
 */.settings/
 */.classpath
 */bin/
+
+# intellij
+.idea/
+*.iml
